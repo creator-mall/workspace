@@ -4,7 +4,7 @@ import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { App, Button, Form, Input, Layout, Row, Typography } from 'antd';
 import { useRouter } from 'next/navigation';
 
-import { login, LoginDto } from './actions';
+import { login, LoginBody } from './actions';
 import styles from './styles.module.css';
 
 const { Content } = Layout;
@@ -21,7 +21,7 @@ export default function Page() {
             <Typography.Title level={2} style={{ paddingBottom: '0.5rem' }}>
               欢迎使用
             </Typography.Title>
-            <Form<LoginDto>
+            <Form<LoginBody>
               name="basic"
               layout="vertical"
               autoComplete="off"

@@ -2,22 +2,24 @@
 
 import { cookies } from 'next/headers';
 
-export type LoginDto = {
+import { api } from '@shared/clients';
+
+export type LoginBody = {
   email: string;
   password: string;
 };
 
-export async function login(dto: LoginDto): Promise<boolean> {
-  // const check = await verify(config.admin.token, dto.password);
-  // if (check) {
-  //   const session = JSON.stringify({ user: config.admin.user });
-  //   const encrypted = AES.encrypt(session, config.key).toString();
-  //   cookies().set('session', encrypted, {
-  //     secure: config.production,
-  //     path: '/',
-  //     httpOnly: true,
-  //     sameSite: 'strict'
-  //   });
-  // }
-  return false;
+export type LoginResult = {
+  tokenValue: string;
+};
+
+export async function login(dto: LoginBody): Promise<boolean> {
+  const response = await api.post<LoginResult>('/login', dto);
+  cookies().set('session', response.data.tokenValue, {
+    secure: true,
+    path: '/',
+    httpOnly: true,
+    sameSite: 'strict'
+  });
+  return response.status === 200;
 }
