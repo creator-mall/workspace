@@ -21,33 +21,3 @@ model User {
 
   @@map("user")
 }
-
-enum TenantKind {
-  group
-}
-
-model Tenant {
-  id          Int         @id @default(autoincrement())
-  create_time DateTime    @default(now())
-  update_time DateTime    @updatedAt
-  kind        TenantKind  @default(group)
-  weight      Int         @default(0)
-  code        String      @unique @db.VarChar(20)
-  name        String      @db.VarChar(50)
-  name_en     String?     @db.VarChar(50)
-  tel         String?     @db.VarChar(20)
-  logo        String?     @db.VarChar
-  description String?     @db.VarChar
-  address     String?     @db.VarChar
-  info        TenantInfo?
-
-  @@map("tenant")
-}
-
-model TenantInfo {
-  id        Int    @id @default(autoincrement())
-  tenant_id Int    @unique
-  tenant    Tenant @relation(fields: [tenant_id], references: [id])
-
-  @@map("tenant_info")
-}

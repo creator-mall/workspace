@@ -2,15 +2,14 @@
 
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { App, Button, Form, Input, Layout, Row, Typography } from 'antd';
-import { useRouter } from 'next/navigation';
 
-import { login, LoginBody } from './actions';
+import { login } from './actions';
 import styles from './styles.module.css';
 
 const { Content } = Layout;
 
 export default function Page() {
-  const router = useRouter();
+  // const router = useRouter();
   const { message } = App.useApp();
 
   return (
@@ -21,7 +20,7 @@ export default function Page() {
             <Typography.Title level={2} style={{ paddingBottom: '0.5rem' }}>
               欢迎使用
             </Typography.Title>
-            <Form<LoginBody>
+            <Form
               name="basic"
               layout="vertical"
               autoComplete="off"
@@ -31,7 +30,7 @@ export default function Page() {
                   return;
                 }
                 message.success({ content: '登录成功，正在加载数据~' });
-                router.push('/admin');
+                // router.push('/admin');
               }}
             >
               <Form.Item

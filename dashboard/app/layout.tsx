@@ -1,21 +1,30 @@
-import type { Metadata } from 'next';
+import './global.css';
 import React from 'react';
 
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { App, ConfigProvider, Layout } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 
-import './globals.css';
+import { bootstrap, db } from '../bootstrap';
 
-export const metadata: Metadata = {
-  title: 'OpenPMS'
+export const metadata = {
+  title: 'OpenMall'
 };
 
 interface Prop {
   children: React.ReactNode;
 }
 
-export default async function RootLayout({ children }: Prop) {
+bootstrap()
+  .catch(e => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await db.$disconnect();
+  });
+
+export default function RootLayout({ children }: Prop) {
   return (
     <html lang="zh">
       <body>
