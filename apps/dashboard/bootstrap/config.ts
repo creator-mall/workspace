@@ -1,5 +1,4 @@
 /* eslint-disable turbo/no-undeclared-env-vars */
-
 import Joi from "joi";
 
 interface Config {
@@ -8,7 +7,7 @@ interface Config {
   key: string;
 }
 
-export async function getConfig(): Promise<Config> {
+export default async function getConfig(): Promise<Config> {
   const schema = Joi.object({
     production: Joi.boolean(),
     name: Joi.string().required(),

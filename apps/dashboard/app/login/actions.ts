@@ -1,11 +1,12 @@
 "use server";
 
-import { getConfig } from "@bootstrap";
-import { db } from "@creator/common";
+import db from "@creator/common/db";
 import { verify } from "@node-rs/argon2";
 import { sign } from "@node-rs/jsonwebtoken";
 import { nanoid } from "nanoid";
 import { cookies } from "next/headers";
+
+import getConfig from "@bootstrap/config";
 
 export type LoginBody = {
   email: string;
@@ -30,13 +31,13 @@ export async function login(body: LoginBody): Promise<boolean> {
     return false;
   }
   const jti = nanoid();
-  const config = await getConfig();
+  const { key } = await getConfig();
   const token = await sign(
     {
       jti,
       email: body.email,
     },
-    config.key,
+    key,
   );
   cookies().set("access_token", token, {
     secure: true,

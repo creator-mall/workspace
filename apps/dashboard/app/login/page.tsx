@@ -1,8 +1,19 @@
 "use client";
 
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { App, Button, Form, Input, Layout, Row, Typography } from "antd";
+import { GithubOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import {
+  App,
+  Button,
+  Divider,
+  Form,
+  Input,
+  Layout,
+  Row,
+  Space,
+  Typography,
+} from "antd";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 import { login } from "./actions";
 import styles from "./styles.module.css";
@@ -63,6 +74,18 @@ export default function Page() {
                   登录
                 </Button>
               </Form.Item>
+
+              <Divider style={{ margin: "12px 0" }} plain></Divider>
+
+              <Space>
+                <Button
+                  type="text"
+                  icon={<GithubOutlined />}
+                  onClick={async () => {
+                    await signIn("github");
+                  }}
+                ></Button>
+              </Space>
             </Form>
           </div>
         </Row>
